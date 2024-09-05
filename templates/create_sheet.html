@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Ficha de RPG</title>
+</head>
+<body>
+    <h1>Criar Ficha de RPG</h1>
+    <form action="{{ url_for('sheets.create_sheet') }}" method="POST">
+        <label for="character_name">Nome do Personagem:</label>
+        <input type="text" id="character_name" name="character_name" required><br>
+
+        <label for="manual">Manual:</label>
+        <select id="manual" name="manual">
+            <option value="O Guardião">O Guardião</option>
+            <option value="O Audaz">O Audaz</option>
+            <!-- Adicione mais opções conforme necessário -->
+        </select><br>
+
+        <!-- Campos para atributos, movimentos, história, inventário, relações -->
+        <!-- Exemplos de campos -->
+        <label for="attributes">Atributos:</label>
+        <input type="text" id="attributes" name="attributes" required><br>
+
+        <label for="movements">Movimentos:</label>
+        <input type="text" id="movements" name="movements" required><br>
+
+        <label for="story">História:</label>
+        <textarea id="story" name="story"></textarea><br>
+
+        <label for="inventory">Inventário:</label>
+        <input type="text" id="inventory" name="inventory"><br>
+
+        <label for="relations">Relações:</label>
+        <input type="text" id="relations" name="relations"><br>
+
+        <button type="submit">Criar Ficha</button>
+    </form>
+</body>
+</html>
