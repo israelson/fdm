@@ -1,39 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Ficha de RPG</title>
+    <script>
+        function updateValue(id, delta) {
+            var element = document.getElementById(id);
+            var currentValue = parseInt(element.value);
+            var newValue = currentValue + delta;
+            if (newValue >= -2 && newValue <= 3) {  // Definir os limites de valores de atributos
+                element.value = newValue;
+            }
+        }
+
+        function validateMovements() {
+            var checkedBoxes = document.querySelectorAll('input[name="movements"]:checked').length;
+            if (checkedBoxes > 2) {
+                alert("Você só pode selecionar até 2 movimentos.");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
-    <h1>Criar Ficha de RPG</h1>
-    <form action="{{ url_for('sheets.create_sheet') }}" method="POST">
+    <h1>Criar Ficha de RPG - O Guardião</h1>
+    <form action="{{ url_for('sheets.create_sheet') }}" method="POST" onsubmit="return validateMovements()">
         <label for="character_name">Nome do Personagem:</label>
         <input type="text" id="character_name" name="character_name" required><br>
 
-        <label for="manual">Manual:</label>
-        <select id="manual" name="manual">
-            <option value="O Guardião">O Guardião</option>
-            <option value="O Audaz">O Audaz</option>
-            <!-- Adicione mais opções conforme necessário -->
+        <label for="fighting_style">Antecedentes (Fighting Style):</label>
+        <select id="fighting_style" name="fighting_style">
+            <option value="Militar">Militar</option>
+            <option value="Monge">Monge</option>
+            <option value="Criminoso">Criminoso</option>
+            <!-- Adicione outras opções conforme necessário -->
         </select><br>
 
-        <!-- Campos para atributos, movimentos, história, inventário, relações -->
-        <!-- Exemplos de campos -->
-        <label for="attributes">Atributos:</label>
-        <input type="text" id="attributes" name="attributes" required><br>
 
-        <label for="movements">Movimentos:</label>
-        <input type="text" id="movements" name="movements" required><br>
+        <label for="demeanor">Comportamento (Demeanor):</label>
+        <select id="demeanor" name="demeanor">
+            <option value="Rigoroso">Rigoroso</option>
+            <option value="Sério">Sério</option>
+            <option value="Desconfiado">Desconfiado</option>
+            <!-- Adicione outras opções conforme necessário -->
+        </select><br>
+
+        <label for="treinamento">Treinamento:</label>
+        <select id="treinamento" name="treinamento">
+            <option value="Dobra de Água">Dobra de Água</option>
+            <option value="Dobra de Fogo">Dobra de Fogo</option>
+            <option value="Dobra de Terra">Dobra de Terra</option>
+            <option value="Dobra de Ar">Dobra de Ar</option>
+            <option value="Armas">Armas</option>
+            <option value="Tecnologia">Tecnologia</option>
+        </select><br>
+
+        <h3>Atributos</h3>
+        <label for="creatividade">Criatividade:</label>
+        <button type="button" onclick="updateValue('creatividade', -1)">-</button>
+        <input type="number" id="creatividade" name="creatividade" value="0" readonly>
+        <button type="button" onclick="updateValue('creatividade', 1)">+</button><br>
+
+        <label for="foco">Foco:</label>
+        <button type="button" onclick="updateValue('foco', -1)">-</button>
+        <input type="number" id="foco" name="foco" value="0" readonly>
+        <button type="button" onclick="updateValue('foco', 1)">+</button><br>
+
+        <label for="harmonia">Harmonia:</label>
+        <button type="button" onclick="updateValue('harmonia', -1)">-</button>
+        <input type="number" id="harmonia" name="harmonia" value="0" readonly>
+        <button type="button" onclick="updateValue('harmonia', 1)">+</button><br>
+
+        <label for="paixao">Paixão:</label>
+        <button type="button" onclick="updateValue('paixao', -1)">-</button>
+        <input type="number" id="paixao" name="paixao" value="0" readonly>
+        <button type="button" onclick="updateValue('paixao', 1)">+</button><br>
+
+
+        <h3>Movimentos (Selecione até 2)</h3>
+        <label><input type="checkbox" name="movements" value="Mente Desconfiada"> Mente Desconfiada</label><br>
+        <label><input type="checkbox" name="movements" value="Pegou na Mentira"> Pegou na Mentira</label><br>
+        <label><input type="checkbox" name="movements" value="Complexo de Mártir"> Complexo de Mártir</label><br>
+        <label><input type="checkbox" name="movements" value="Carteirada"> Carteirada</label><br>
+        <label><input type="checkbox" name="movements" value="Focado"> Focado</label><br>
+
+        <h3>Condições</h3>
+        <label><input type="checkbox" name="conditions" value="Assustado"> Assustado</label><br>
+        <label><input type="checkbox" name="conditions" value="Zangado"> Zangado</label><br>
+        <label><input type="checkbox" name="conditions" value="Culpado"> Culpado</label><br>
+        <label><input type="checkbox" name="conditions" value="Inseguro"> Inseguro</label><br>
+        <label><input type="checkbox" name="conditions" value="Tolo"> Tolo</label><br>
 
         <label for="story">História:</label>
         <textarea id="story" name="story"></textarea><br>
-
-        <label for="inventory">Inventário:</label>
-        <input type="text" id="inventory" name="inventory"><br>
-
-        <label for="relations">Relações:</label>
-        <input type="text" id="relations" name="relations"><br>
 
         <button type="submit">Criar Ficha</button>
     </form>
